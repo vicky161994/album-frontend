@@ -1,17 +1,16 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import PersonIcon from "@material-ui/icons/Person";
-import Badge from "@material-ui/core/Badge";
+import {logout} from "../actions/UserActions"
 
 function Header() {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
     const {user} = userLogin;
   const handleLogoutAction = () => {
+    dispatch(logout())
   };
 
   return (
@@ -38,7 +37,7 @@ function Header() {
               {!user && (<LinkContainer to="login">
                 <Nav.Link>Login</Nav.Link>
               </LinkContainer>)}
-              {user && (<Nav.Link onClick={handleLogoutAction}>
+              {user && (<Nav.Link>
                 {user.name}
               </Nav.Link>)}
               {user && (<Nav.Link onClick={handleLogoutAction}>

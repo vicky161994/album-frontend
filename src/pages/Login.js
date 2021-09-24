@@ -5,11 +5,9 @@ import CardContent from "@material-ui/core/CardContent";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import Facebook from "@material-ui/icons/Facebook";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,24 +19,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Login(props) {
-  const [redirect, setRedirect] = useState(
-    props.location.search
-      ? props.location.search.split("?")[1].split("=")[1]
-      : "/"
-  );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
-  const [isFacebookProcessing, setIsFacebookProcessing] = useState(false);
-  const [isGoogleProcessing, setIsGoogleProcessing] = useState(false);
   const classes = useStyles();
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, user, error } = userLogin;
-  console.log(user);
+  const { user } = userLogin;
   if(user){
     props.history.push('/')
   }

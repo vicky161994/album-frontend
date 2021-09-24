@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -42,7 +42,7 @@ function Signup(props) {
     if(authUser){
       props.history.push('/');
     }
-  const { loading, user, error } = userRegister;
+  const { user } = userRegister;
   const handleName = (e) => {
     if (e.target.value === "") {
       setNameError(true);

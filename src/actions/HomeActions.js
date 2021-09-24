@@ -12,7 +12,6 @@ export const getImageList = (pageNumber, limit) => async (dispatch, getState) =>
         const {
             userLogin: { user },
           } = getState();
-          console.log(user);
         const {
             data
         } = await Axios.post("/api/home/get-all-image", {
@@ -31,7 +30,7 @@ export const getImageList = (pageNumber, limit) => async (dispatch, getState) =>
         console.log(error)
         dispatch({
             type: GET_IMAGE_LIST_FAIL,
-            payload: error.response.data.message,
+            payload: "Somthing went wrong, Please try again",
         });
     }
 };

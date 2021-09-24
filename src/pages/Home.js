@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react'
 import {Col, Container, Row} from 'react-bootstrap'
 import {useDispatch, useSelector} from 'react-redux';
 import { getImageList } from '../actions/HomeActions';
-import { Button, TextField, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import Image from '../component/Image'
 
 
