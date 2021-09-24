@@ -13,10 +13,7 @@ import Facebook from "@material-ui/icons/Facebook";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import {
-//   login,
-// } from "../actions/userActions";
-
+import { login } from "../actions/UserActions";
 const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
@@ -39,6 +36,12 @@ function Login(props) {
   const [isGoogleProcessing, setIsGoogleProcessing] = useState(false);
   const classes = useStyles();
   const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, user, error } = userLogin;
+  console.log(user);
+  if(user){
+    props.history.push('/')
+  }
   const handleEmail = (e) => {
     if (e.target.value === "") {
       setEmailError(true);
@@ -78,8 +81,14 @@ function Login(props) {
     if (emailError || passwordError) {
       return false;
     }
-    // dispatch(login(email, password));
+    dispatch(login(email, password));
   };
+
+  useEffect(() => {
+    if (user) {
+      props.history.push('/');
+    }
+  }, [props.history, user]);
 
   return (
     <Row className="no-gutter">

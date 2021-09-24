@@ -37,6 +37,11 @@ function Signup(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const userRegister = useSelector((state) => state.userRegister);
+  const userLogin = useSelector((state) => state.userLogin);
+    const authUser = userLogin.user;
+    if(authUser){
+      props.history.push('/');
+    }
   const { loading, user, error } = userRegister;
   const handleName = (e) => {
     if (e.target.value === "") {

@@ -9,6 +9,8 @@ import Badge from "@material-ui/core/Badge";
 
 function Header() {
   const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+    const {user} = userLogin;
   const handleLogoutAction = () => {
   };
 
@@ -33,13 +35,16 @@ function Header() {
           className="justify-content-end"
         >
           <Nav className="mr-auto">
-              <LinkContainer to="login">
+              {!user && (<LinkContainer to="login">
                 <Nav.Link>Login</Nav.Link>
-              </LinkContainer>
-              <Nav.Link onClick={handleLogoutAction}>
+              </LinkContainer>)}
+              {user && (<Nav.Link onClick={handleLogoutAction}>
+                {user.name}
+              </Nav.Link>)}
+              {user && (<Nav.Link onClick={handleLogoutAction}>
                 Logout
                 <ExitToAppIcon />
-              </Nav.Link>
+              </Nav.Link>)}
           </Nav>
         </Navbar.Collapse>
       </Container>

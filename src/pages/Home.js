@@ -6,9 +6,14 @@ import { Button, TextField, Typography } from "@material-ui/core";
 import Image from '../component/Image'
 
 
-function Home() {
+function Home(props) {
     const [page, setPage] = useState(1);
     const dispatch = useDispatch();
+    const userLogin = useSelector((state) => state.userLogin);
+    const {user} = userLogin;
+    if(!user){
+      props.history.push('/login');
+    }
     const imageList = useSelector((state) => state.imageList);
     const { loading, images, error } = imageList;
     useEffect(() => {

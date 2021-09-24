@@ -10,13 +10,17 @@ export const getImageList = (pageNumber, limit) => async (dispatch, getState) =>
     });
     try {
         const {
+            userLogin: { user },
+          } = getState();
+          console.log(user);
+        const {
             data
         } = await Axios.post("/api/home/get-all-image", {
             pageNumber,
             limit
         }, {
             headers: {
-                Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTRjNDMwMDYzMjkwZTc0YTM5NjM4ZWMiLCJuYW1lIjoiVmlja3kgS3VtYXIiLCJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJpYXQiOjE2MzI0MDQ3NzEsImV4cCI6MTYzMzAwOTU3MX0.NPa3WcBqM23jsYDvGWmZhRP2EtFCvpSdwe9qHPcrCec'}`
+                Authorization: `Bearer ${user.token}`
             },
         });
         dispatch({
@@ -24,6 +28,7 @@ export const getImageList = (pageNumber, limit) => async (dispatch, getState) =>
             payload: data.imageList,
         });
     } catch (error) {
+        console.log(error)
         dispatch({
             type: GET_IMAGE_LIST_FAIL,
             payload: error.response.data.message,
