@@ -1,0 +1,146 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ebebe0 !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100vh !important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+/* COMMON START */
+p {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+a {
+  text-decoration: none !important;
+}
+li {
+  list-style: none;
+}
+.row {
+  margin: 0px !important;
+}
+.react-share__ShareButton {
+  padding: 10px !important;
+}
+.addedtoWishlist {
+  color: #ff6666;
+}
+.success {
+  color: #69cc00 !important;
+}
+.danger {
+  color: #ff6666 !important;
+  position: relative;
+  animation: myfirst 0.1s 2;
+  animation-direction: alternate;
+  font-weight: bold;
+}
+.pagination {
+  margin: 10px 0px;
+}
+@keyframes myfirst {
+  0% {
+    left: 0px;
+  }
+  25% {
+    left: 10px;
+  }
+  50% {
+    left: 10px;
+  }
+  75% {
+    left: 0px;
+  }
+  100% {
+    left: 0px;
+  }
+}
+#react-paginate ul {
+  display: inline-block;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+#react-paginate li {
+  display: inline-block;
+}
+
+input[type="radio"] {
+  border: 0px;
+  width: 3%;
+  height: 2em;
+}
+
+/* COMMON END */
+
+/* LOGIN START */
+.loginCard,
+.registerCard {
+  text-align: center;
+  position: relative;
+}
+#logintext {
+  font-family: none;
+  color: grey;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.forgotPassword {
+  padding-right: 30px;
+}
+.signup {
+  padding-left: 10px;
+}
+/* LOGIN END */
+
+/* HOMEPAGE START */
+
+.search-filter-box div {
+  height: 45px;
+}
+.search-filter-box label {
+  transform: translate(14px, 13px) scale(1);
+}
+.search-filter-box .MuiInputLabel-outlined .MuiInputLabel-shrink {
+  transform: translate(14px, 0px) scale(0.75);
+}
+
+/* HOMEPAGE END */
+
+@media (max-width: 991px) {
+  .loginCard {
+    margin: 5rem 0rem !important;
+    width: 100% !important;
+  }
+  .registerCard {
+    margin: 1.5rem 0rem !important;
+    width: 100% !important;
+  }
+  .makeStyles-root-1 {
+    margin-top: 5px !important;
+  }
+  .price {
+    margin-top: 10px !important;
+  }
+  .payment-btn {
+    text-align: center;
+  }
+  .disp_mob_hide {
+    display: none;
+  }
+}
