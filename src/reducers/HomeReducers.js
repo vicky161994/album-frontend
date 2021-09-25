@@ -2,9 +2,6 @@ import {
     GET_IMAGE_LIST_FAIL,
     GET_IMAGE_LIST_REQUEST,
     GET_IMAGE_LIST_SUCCESS,
-    UPLOAD_IMAGE_FAIL,
-    UPLOAD_IMAGE_REQUEST,
-    UPLOAD_IMAGE_SUCCESS
 } from "../constants/homeConstants";
 
 export const imageListReducers = (

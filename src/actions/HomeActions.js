@@ -5,17 +5,26 @@ import {
     GET_IMAGE_LIST_SUCCESS,
     UPLOAD_IMAGE_FAIL,
     UPLOAD_IMAGE_REQUEST,
-    UPLOAD_IMAGE_SUCCESS,
 } from "../constants/homeConstants";
 
 export const getImageList = (pageNumber, limit) => async (dispatch, getState) => {
-    dispatch({
-        type: GET_IMAGE_LIST_REQUEST
-    });
+    const {
+        imageList: {
+            images
+        }
+    } = getState();
+    if (pageNumber === 1) {
+        dispatch({
+            type: GET_IMAGE_LIST_REQUEST
+        });
+    }
+
     try {
         const {
-            userLogin: { user },
-          } = getState();
+            userLogin: {
+                user
+            },
+        } = getState();
         const {
             data
         } = await Axios.post("/api/home/get-all-image", {
@@ -26,10 +35,17 @@ export const getImageList = (pageNumber, limit) => async (dispatch, getState) =>
                 Authorization: `Bearer ${user.token}`
             },
         });
-        dispatch({
-            type: GET_IMAGE_LIST_SUCCESS,
-            payload: data.imageList,
-        });
+        if (images) {
+            dispatch({
+                type: GET_IMAGE_LIST_SUCCESS,
+                payload: [...images, ...data.imageList],
+            });
+        } else {
+            dispatch({
+                type: GET_IMAGE_LIST_SUCCESS,
+                payload: data.imageList,
+            });
+        }
     } catch (error) {
         console.log(error)
         dispatch({
@@ -45,14 +61,16 @@ export const selectedImageUpload = (formData) => async (dispatch, getState) => {
     });
     try {
         const {
-            userLogin: { user },
-          } = getState();
-          const config = {
-              headers: {
-                'content-type':'multipart/form-data',
+            userLogin: {
+                user
+            },
+        } = getState();
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data',
                 Authorization: `Bearer ${user.token}`
-              }
-          }
+            }
+        }
         await Axios.post("/api/home/upload-image", formData, config);
         let {
             data
@@ -83,14 +101,18 @@ export const capturedImageUpload = (base64image) => async (dispatch, getState) =
     });
     try {
         const {
-            userLogin: { user },
-          } = getState();
-          const config = {
-              headers: {
+            userLogin: {
+                user
+            },
+        } = getState();
+        const config = {
+            headers: {
                 Authorization: `Bearer ${user.token}`
-              }
-          }
-        await Axios.post("/api/home/upload-base64-image", {base64image}, config);
+            }
+        }
+        await Axios.post("/api/home/upload-base64-image", {
+            base64image
+        }, config);
         let {
             data
         } = await Axios.post("/api/home/get-all-image", {

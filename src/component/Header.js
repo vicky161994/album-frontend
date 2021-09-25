@@ -5,7 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import {Button} from "@material-ui/core";
 import {logout} from "../actions/UserActions"
-import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, styled} from '@material-ui/core';
+import {Dialog, DialogActions, DialogContent, DialogTitle, Slide, styled} from '@material-ui/core';
 import { capturedImageUpload, selectedImageUpload } from "../actions/HomeActions";
 import Webcam from "react-webcam";
 
@@ -25,7 +25,6 @@ function Header() {
   const [image, setImage] = useState(null);
   const [processing, setProcessing] = useState(false);
   const [isCaptureImage, setIsCaptureImage] = useState(false);
-  const [capturedImage, setCapturedImage] = useState(null);
 
   const handleLogoutAction = () => {
     dispatch(logout())
@@ -50,7 +49,7 @@ function Header() {
       return false
     }
     if(image){
-      if(counter == 0){
+      if(counter === 0){
         const formData = new FormData();
         formData.append('image', image);
         setProcessing(true)
@@ -125,11 +124,11 @@ function Header() {
       )}
       {!isCaptureImage &&(
         <div className="image-box">
-          <img src={file} alt="Image not available" height="100%" width="100%"></img>
+          <img src={file} alt="not available" height="100%" width="100%"></img>
         </div>)}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} variant="contained" color="danger">Cancel</Button>
+          <Button onClick={handleClose} variant="contained">Cancel</Button>
           {!processing && (<Button onClick={uploadSelectedImage} variant="contained" color="primary">Upload</Button>)}
           {processing && (<Button onClick={uploadSelectedImage} variant="contained" color="primary">Uploading Please wait</Button>)}
         </DialogActions>

@@ -19,6 +19,18 @@ function Home(props) {
     useEffect(() => {
         dispatch(getImageList(page, 10));
       }, [dispatch, page]);
+
+      window.onscroll = () => {
+        if(window.innerHeight + window.scrollY >= document.body.scrollHeight){
+          scrollToEnd();
+        }
+      }
+
+      const scrollToEnd = () =>{
+        setPage(page + 1);
+      }
+
+
     return (
         <Container>
           {loading ? ( <div>
