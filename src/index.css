@@ -86,6 +86,12 @@ input[type="radio"] {
   height: 2em;
 }
 
+.image {
+  width: 100%;
+  height: auto;
+  max-height: 330px;
+}
+
 /* COMMON END */
 
 /* LOGIN START */
@@ -110,14 +116,10 @@ input[type="radio"] {
 
 /* HOMEPAGE START */
 
-.search-filter-box div {
-  height: 45px;
-}
-.search-filter-box label {
-  transform: translate(14px, 13px) scale(1);
-}
-.search-filter-box .MuiInputLabel-outlined .MuiInputLabel-shrink {
-  transform: translate(14px, 0px) scale(0.75);
+.upload-button{
+  position: fixed;
+  bottom: -4px;
+  right: 10px;
 }
 
 /* HOMEPAGE END */
@@ -144,3 +146,13 @@ input[type="radio"] {
     display: none;
   }
 }
+
+/* HEADER START */
+
+.image-box{
+  height: 380px;
+  width: 380px;
+  margin: 5px;
+}
+
+/* HEADER END */

@@ -17,11 +17,11 @@ function Home(props) {
     const imageList = useSelector((state) => state.imageList);
     const { loading, images, error } = imageList;
     useEffect(() => {
-        dispatch(getImageList(page, 2));
+        dispatch(getImageList(page, 10));
       }, [dispatch, page]);
     return (
         <Container>
-            {loading ? ( <div>
+          {loading ? ( <div>
           <i className="fa fa-spinner fa-spin"></i>
           Loading ...
         </div>) : error ? (<div>some error here</div>) : (
@@ -40,7 +40,9 @@ function Home(props) {
           {images.map((image, index) => {
             return (
               <Col lg={6} md={12} sm={12} xs={12} key={image._id} className="image-column">
-                <Image image={image} />
+                <div style={{height: "100%", width: "100%"}}>
+                  <Image image={image} />
+                </div>
               </Col>
             );
           })}

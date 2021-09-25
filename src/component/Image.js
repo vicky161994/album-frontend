@@ -17,3 +17,20 @@ function Image(props) {
 }
 
 export default Image
+
+
+
+
+// import React from 'react'
+// import Card from "@material-ui/core/Card";
+// import CardMedia from "@material-ui/core/CardMedia";
+
+// function Image(props) {
+//     return (
+//       <div style={{backgroundImage: `url(http://${props.image.imageName})`, height: "400px", width: "100%", backgroundRepeat: "no-repeat", backgroundPosition: "ceter", backgroundSize: "cover"}}></div>
+//       // <img className="image" src={`http://${props.image.imageName}`} width="460" height="345" />
+//     )
+// }
+
+// export default Image
+
