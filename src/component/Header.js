@@ -6,7 +6,8 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import {Button} from "@material-ui/core";
 import {logout} from "../actions/UserActions"
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, styled} from '@material-ui/core';
-import { selectedImageUpload } from "../actions/HomeActions";
+import { capturedImageUpload, selectedImageUpload } from "../actions/HomeActions";
+import Webcam from "react-webcam";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -23,6 +24,8 @@ function Header() {
   const {user} = userLogin;
   const [image, setImage] = useState(null);
   const [processing, setProcessing] = useState(false);
+  const [isCaptureImage, setIsCaptureImage] = useState(false);
+  const [capturedImage, setCapturedImage] = useState(null);
 
   const handleLogoutAction = () => {
     dispatch(logout())
@@ -43,21 +46,51 @@ function Header() {
   let counter = 0;
   
   const uploadSelectedImage = async () => {
-    if(!image){
+    if(!file){
       return false
     }
-    if(counter == 0){
-      const formData = new FormData();
-      formData.append('image', image);
-      setProcessing(true)
-      await dispatch(selectedImageUpload(formData));
-      setProcessing(false)
-      setOpen(false);
-      setFile('no_image_available.png')
-      setImage(null)
+    if(image){
+      if(counter == 0){
+        const formData = new FormData();
+        formData.append('image', image);
+        setProcessing(true)
+        await dispatch(selectedImageUpload(formData));
+      }
+    } else {
+      uploadCapturedImage()
     }
+    setProcessing(false)
+    setOpen(false);
+    setFile('no_image_available.png')
+    setImage(null)
     counter++;
   }
+
+  const openCamera = () => {
+    setIsCaptureImage(true);
+  }
+
+  const videoConstraints = {
+    width: 320,
+    height: 320,
+    facingMode: "user"
+  };
+
+  const webcamRef = React.useRef(null);
+
+  const capture = React.useCallback(
+    () => {
+      const imageSrc = webcamRef.current.getScreenshot();
+      setFile(imageSrc);
+      setIsCaptureImage(false)
+    },
+    [webcamRef]
+  );
+
+  const uploadCapturedImage = () => {
+    dispatch(capturedImageUpload(file))
+  }
+  
 
   return (
     <Navbar bg="dark" variant="dark" collapseOnSelect expand="md" sticky="top">
@@ -67,6 +100,7 @@ function Header() {
         keepMounted
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
+        style={{textAlign: "center"}}
       >
         <DialogTitle>{"Select or capture an image"}</DialogTitle>
         <DialogContent>
@@ -76,9 +110,23 @@ function Header() {
             Select Image
           </Button>
         </label>
+        <Button variant="contained" component="span" style={{marginLeft: "20px"}} onClick={openCamera}>
+            Capture Image
+          </Button>
+          {isCaptureImage && (
+          <>
+          <br /><br /><br />
+          <div style={{textAlign: "center"}}>
+            <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" height="400" width="500" videoConstraints={videoConstraints} />
+            <Button variant="contained" color="primary" onClick={capture}>Capture photo</Button>
+            <br />
+          </div>
+          </>                  
+      )}
+      {!isCaptureImage &&(
         <div className="image-box">
           <img src={file} alt="Image not available" height="100%" width="100%"></img>
-        </div>
+        </div>)}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} variant="contained" color="danger">Cancel</Button>

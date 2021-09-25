@@ -76,3 +76,40 @@ export const selectedImageUpload = (formData) => async (dispatch, getState) => {
         });
     }
 };
+
+export const capturedImageUpload = (base64image) => async (dispatch, getState) => {
+    dispatch({
+        type: UPLOAD_IMAGE_REQUEST
+    });
+    try {
+        const {
+            userLogin: { user },
+          } = getState();
+          const config = {
+              headers: {
+                Authorization: `Bearer ${user.token}`
+              }
+          }
+        await Axios.post("/api/home/upload-base64-image", {base64image}, config);
+        let {
+            data
+        } = await Axios.post("/api/home/get-all-image", {
+            pageNumber: 1,
+            limit: 10
+        }, {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            },
+        });
+        dispatch({
+            type: GET_IMAGE_LIST_SUCCESS,
+            payload: data.imageList,
+        });
+    } catch (error) {
+        console.log(error)
+        dispatch({
+            type: UPLOAD_IMAGE_FAIL,
+            payload: "Somthing went wrong, Please try again",
+        });
+    }
+};
