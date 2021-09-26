@@ -12,6 +12,7 @@ import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../actions/UserActions";
+import { Typography } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
@@ -28,7 +29,7 @@ function Login(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
-  const { user } = userLogin;
+  const { user, error } = userLogin;
   if(user){
     props.history.push('/')
   }
@@ -88,6 +89,16 @@ function Login(props) {
           style={{ margin: "4.95rem 5rem", width: "50%" }}
           className="loginCard"
         >
+          {error && (
+              <Typography
+                className="danger"
+                variant="body2"
+                color="textSecondary"
+                component="p"
+              >
+                {error}
+              </Typography>
+            )}
           <CardContent>
             <div>
               <TextField
