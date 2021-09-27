@@ -47,7 +47,7 @@ export const getImageList = (pageNumber, limit) => async (dispatch, getState) =>
             });
         }
     } catch (error) {
-        console.log(error)
+        localStorage.removeItem('album-userDetails');
         dispatch({
             type: GET_IMAGE_LIST_FAIL,
             payload: "Somthing went wrong, Please try again",
